@@ -5,7 +5,7 @@ import img1 from '@/assets/img/elon.png'
 <template>
   <div class="card">
     <div class="card-body">
-      <img :src="img1" alt="" />
+      <img :src="img1" alt="" class="img-fluid" />
       <h4 class="card-title">My title</h4>
       <p class="card-text">
         Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quis nostrum ut, quam consequuntur
