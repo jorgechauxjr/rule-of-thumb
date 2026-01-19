@@ -1,13 +1,15 @@
 <script setup>
-import MainHeader from './components/MainHeader.vue'
-import MainAside from './components/MainAside.vue'
-import SecondaryAside from './components/SecondaryAside.vue'
-import MainFooter from './components/MainFooter.vue'
+import MainHeader from './components/HeaderMain.vue'
+import MainAside from './components/AsideMain.vue'
+import SecondaryAside from './components/AsideSecondary.vue'
+import MainFooter from './components/FooterMain.vue'
+import CardsMain from './components/CardsMain.vue'
 </script>
 
 <template>
   <MainHeader />
   <MainAside />
+  <CardsMain />
   <SecondaryAside />
   <MainFooter />
 </template>
