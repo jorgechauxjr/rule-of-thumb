@@ -3,7 +3,7 @@ import { ref } from 'vue'
 import thumbsUp from '@/assets/img/thumbs-up.svg'
 import thumbsDown from '@/assets/img/thumbs-down.svg'
 
-defineProps({
+const props = defineProps({
   picture: String,
   name: String,
   description: String,
@@ -15,9 +15,12 @@ defineProps({
 const selectedVote = ref(null)
 const voteIsActive = ref(false)
 const voteNow = ref('btn btn-light disabled')
+const positive = ref(props.positiveVotes)
+const negative = ref(props.negativeVotes)
 
 function selectVote(thumbsType) {
   selectedVote.value = thumbsType
+  console.log('TIPO de voto ', selectedVote.value)
   enableVote()
 }
 
@@ -27,6 +30,19 @@ function enableVote() {
     voteNow.value = 'btn btn-light'
   }
   console.log('Activo?-> ', voteIsActive.value)
+}
+
+function handleVoteNow() {
+  console.log('POSITIVOS: ', positive.value)
+  console.log('manito: ', selectedVote.value)
+  if (selectedVote.value == 'up') {
+    positive.value = positive.value + 1
+  } else {
+    if (selectedVote.value == 'down') {
+      negative.value = negative.value + 1
+    }
+  }
+  console.log('votos P ', positive.value)
 }
 </script>
 
@@ -44,9 +60,9 @@ function enableVote() {
       <button class="btn btn-danger" @click="selectVote('down')">
         <img :src="thumbsDown" alt="thumbs down" />
       </button>
-      <button :class="voteNow">VOTE NOW</button>
+      <button :class="voteNow" @click="handleVoteNow()">VOTE NOW</button>
     </div>
-    <p>{{ positiveVotes }}</p>
-    <p>{{ negativeVotes }}</p>
+    <p>{{ positive }}</p>
+    <p>{{ negative }}</p>
   </div>
 </template>
