@@ -22,6 +22,8 @@ const persons = info.data
           :description="person.description"
           :category="person.category"
           :last-updated="person.lastUpdated"
+          :positive-votes="person.votes.positive"
+          :negative-votes="person.votes.negative"
         />
       </div>
     </div>
