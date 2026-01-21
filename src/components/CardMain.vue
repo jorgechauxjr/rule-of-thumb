@@ -1,5 +1,5 @@
 <script setup>
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
 import thumbsUp from '@/assets/img/thumbs-up.svg'
 import thumbsDown from '@/assets/img/thumbs-down.svg'
 
@@ -17,6 +17,9 @@ const voteIsActive = ref(false)
 const voteNow = ref('btn btn-light disabled')
 const positive = ref(props.positiveVotes)
 const negative = ref(props.negativeVotes)
+const isVoted = ref(false)
+const message = ref('Last updated ' + props.lastUpdated + ' in ' + props.category)
+const buttonMessage = ref('VOTE NOW')
 
 function selectVote(thumbsType) {
   selectedVote.value = thumbsType
@@ -43,6 +46,20 @@ function handleVoteNow() {
     }
   }
   console.log('votos P ', positive.value)
+  isVoted.value = !isVoted.value
+  messages()
+}
+
+function messages() {
+  if (isVoted.value == false) {
+    message.value = 'Last updated ' + props.lastUpdated + ' in ' + props.category
+    buttonMessage.value = 'VOTE NOW'
+  } else {
+    if (isVoted.value == true) {
+      message.value = 'Thank you for your vote!'
+      buttonMessage.value = 'VOTE AGAIN'
+    }
+  }
 }
 </script>
 
@@ -53,14 +70,14 @@ function handleVoteNow() {
       <img src="" alt="" />
       <h4 class="card-title">{{ name }}</h4>
       <p class="card-text">{{ description }}</p>
-      <p>Last updated: {{ lastUpdated }} in {{ category }}</p>
+      <p>{{ message }}</p>
       <button class="btn btn-success" @click="selectVote('up')">
         <img :src="thumbsUp" alt="thumbs up" />
       </button>
       <button class="btn btn-danger" @click="selectVote('down')">
         <img :src="thumbsDown" alt="thumbs down" />
       </button>
-      <button :class="voteNow" @click="handleVoteNow()">VOTE NOW</button>
+      <button :class="voteNow" @click="handleVoteNow()">{{ buttonMessage }}</button>
     </div>
     <p>{{ positive }}</p>
     <p>{{ negative }}</p>
