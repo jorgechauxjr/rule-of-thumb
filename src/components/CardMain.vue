@@ -1,5 +1,5 @@
 <script setup>
-import { ref, computed } from 'vue'
+import { ref } from 'vue'
 import thumbsUp from '@/assets/img/thumbs-up.svg'
 import thumbsDown from '@/assets/img/thumbs-down.svg'
 
@@ -23,7 +23,6 @@ const buttonMessage = ref('VOTE NOW')
 
 function selectVote(thumbsType) {
   selectedVote.value = thumbsType
-  console.log('TIPO de voto ', selectedVote.value)
   enableVote()
 }
 
@@ -31,22 +30,27 @@ function enableVote() {
   if (voteIsActive.value === false) {
     voteIsActive.value = true
     voteNow.value = 'btn btn-light'
+  } else {
+    voteNow.value = 'btn btn-light disabled'
+    voteIsActive.value = false
   }
-  console.log('Activo?-> ', voteIsActive.value)
 }
 
 function handleVoteNow() {
-  console.log('POSITIVOS: ', positive.value)
-  console.log('manito: ', selectedVote.value)
-  if (selectedVote.value == 'up') {
-    positive.value = positive.value + 1
-  } else {
-    if (selectedVote.value == 'down') {
-      negative.value = negative.value + 1
+  if (buttonMessage.value == 'VOTE NOW') {
+    if (selectedVote.value == 'up') {
+      positive.value = positive.value + 1
+    } else {
+      if (selectedVote.value == 'down') {
+        negative.value = negative.value + 1
+      }
     }
+    isVoted.value = !isVoted.value
+  } else {
+    isVoted.value = false
+    enableVote()
   }
-  console.log('votos P ', positive.value)
-  isVoted.value = !isVoted.value
+
   messages()
 }
 
